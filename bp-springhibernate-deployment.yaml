@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment                                          # 1
+metadata:
+  name: bp-springhibernate
+spec:
+  replicas: 2                                             # 2
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate                                   # 3
+    rollingUpdate:
+      maxUnavailable: 1                                   # 4
+      maxSurge: 1                                         # 5
+  template:
+    metadata:
+      labels:
+        app: bp-springhibernate                                  # 6
+    spec:
+      containers:
+        - image: benya/bp-springhibernate
+          imagePullPolicy: Always                         # 7
+          name: bp-springhibernate
+          ports:
+            - containerPort: 80

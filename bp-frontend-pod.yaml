@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod                                            # 1
+metadata:
+  name: bp-frontend
+  labels:
+    app: bp-frontend                                 # 2
+spec:                                                # 3
+  containers:
+    - image: benya/bp-frontend # 4
+      name: bp-frontend                              # 5
+      ports:
+        - containerPort: 80                          # 6

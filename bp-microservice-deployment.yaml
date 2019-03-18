@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: bp-microservice
+spec:
+  replicas: 2
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: bp-microservice
+    spec:
+      containers:
+      - image: benya/bp-microservice
+        imagePullPolicy: Always
+        name: bp-microservice
+        env:
+          - name: SA_LOGIC_API_URL
+            value: "http://bp-pythonservice"
+        ports:
+          - containerPort: 8080
